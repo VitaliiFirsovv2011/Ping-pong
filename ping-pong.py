@@ -38,7 +38,7 @@ window = display.set_mode((win_width, win_height))
 window.fill(back)
 
 mixer.init()
-mixer.music.load('Pygame/Звуки/back_music.mp3')
+mixer.music.load('back_music.mp3')
 mixer.music.play()
 mixer.music.set_volume(0.1)
 
@@ -48,8 +48,8 @@ FPS = 60
 game = True
 finish = False
 
-player1 = Player('Pygame/Картинки/racket.png', 30, 200, 4, 50, 150)
-player2 = Player('Pygame/Картинки/racket.png', 520, 200, 4, 50, 150)
+player1 = Player('racket.png', 30, 200, 4, 50, 150)
+player2 = Player('racket.png', 520, 200, 4, 50, 150)
 
 while game:
     for e in event.get():
@@ -66,4 +66,5 @@ while game:
         player2.reset()
 
     display.update()
+
     clock.tick(FPS)
