@@ -13,13 +13,22 @@ class GameSprite(sprite.Sprite):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
-    def update_l(self):
+    def update_1(self):
         keys = key.get_pressed()
 
         if keys[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
 
         if keys[K_s] and self.rect.y < win_height - 150:
+            self.rect.y += self.speed
+
+    def update_2(self):
+        keys = key.get_pressed()
+
+        if keys[K_UP] and self.rect.y > 5:
+            self.rect.y -= self.speed
+
+        if keys[K_DOWN] and self.rect.y < win_height - 150:
             self.rect.y += self.speed
 
 back = (200, 255, 255)
@@ -35,6 +44,7 @@ game = True
 finish = False
 
 player1 = Player('Pygame/Картинки/racket.png', 30, 200, 4, 50, 150)
+player2 = Player('Pygame/Картинки/racket.png', 520, 200, 4, 50, 150)
 
 while game:
     for e in event.get():
@@ -43,8 +53,12 @@ while game:
     
     if finish != True:
         window.fill(back)
-        player1.update_l()
+
+        player1.update_1()
+        player2.update_2()
+
         player1.reset()
+        player2.reset()
 
     display.update()
     clock.tick(FPS)
