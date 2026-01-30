@@ -35,10 +35,11 @@ back = (200, 255, 255)
 win_width = 600
 win_height = 500
 window = display.set_mode((win_width, win_height))
+display.set_caption('Ping-pong')
 window.fill(back)
 
 mixer.init()
-mixer.music.load('back_music.mp3')
+mixer.music.load('Pygame/Звуки/back_music.mp3')
 mixer.music.play()
 mixer.music.set_volume(0.1)
 
@@ -48,8 +49,9 @@ FPS = 60
 game = True
 finish = False
 
-player1 = Player('racket.png', 30, 200, 4, 50, 150)
-player2 = Player('racket.png', 520, 200, 4, 50, 150)
+player1 = Player('Pygame/Картинки/racket.png', 30, 200, 4, 50, 150)
+player2 = Player('Pygame/Картинки/racket.png', 520, 200, 4, 50, 150)
+ball = GameSprite("Pygame/Картинки/tenis_ball.png", 200, 200, 4, 50, 50)
 
 while game:
     for e in event.get():
@@ -61,10 +63,10 @@ while game:
 
         player1.update_1()
         player2.update_2()
-
+    
         player1.reset()
         player2.reset()
+        ball.reset()
 
     display.update()
-
     clock.tick(FPS)
