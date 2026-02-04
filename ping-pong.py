@@ -39,7 +39,7 @@ display.set_caption('Ping-pong')
 window.fill(back)
 
 mixer.init()
-mixer.music.load('back_music.mp3')
+mixer.music.load('Pygame/Звуки/back_music.mp3')
 mixer.music.play()
 mixer.music.set_volume(0.1)
 
@@ -49,9 +49,17 @@ FPS = 60
 game = True
 finish = False
 
-player1 = Player('racket.png', 30, 200, 4, 50, 150)
-player2 = Player('racket.png', 520, 200, 4, 50, 150)
-ball = GameSprite("tenis_ball.png", 200, 200, 4, 50, 50)
+player1 = Player('Pygame/Картинки/racket.png', 30, 200, 4, 50, 150)
+player2 = Player('Pygame/Картинки/racket.png', 520, 200, 4, 50, 150)
+ball = GameSprite("Pygame/Картинки/tenis_ball.png", 200, 200, 4, 50, 50)
+
+font.init()
+font = font.Font(None, 35)
+lose1 = font.render('ИГРОК 1 ПРОИГРАЛ', True, (180, 0 , 0))
+lose2 = font.render('ИГРОК 2 ПРОИГРАЛ', True, (180, 0 , 0))
+
+speed_x = 3
+speed_y = 3
 
 while game:
     for e in event.get():
@@ -63,11 +71,28 @@ while game:
 
         player1.update_1()
         player2.update_2()
-    
+
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+        
+        if sprite.collide_rect(player1, ball) or sprite.collide_rect(player2, ball):
+            speed_x *= -1
+            speed_y *= 1
+
+        if ball.rect.x > win_height - 50 or ball.rect.y < 0:
+            speed_y *= -1
+
+        if ball.rect.x < 0:
+            window.blit(lose1, (200, 200))
+            finish = True
+
+        if ball.rect.x > win_width:
+            window.blit(lose2, (200, 200))
+            finish = True
+
         player1.reset()
         player2.reset()
         ball.reset()
 
     display.update()
-
     clock.tick(FPS)
